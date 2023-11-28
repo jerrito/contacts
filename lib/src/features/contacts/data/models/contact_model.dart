@@ -1,4 +1,9 @@
+import 'dart:convert';
+
 import 'package:contacts/src/features/contacts/domain/entities/contact.dart';
+
+List<ContactModel> userModelfromJson(String source) => List<ContactModel>.from(json.decode(source).map((e)=>
+ContactModel.fromJson(e))) ;
 
 class ContactModel extends Contact {
   const ContactModel(
@@ -18,7 +23,7 @@ class ContactModel extends Contact {
   Map<String, dynamic> toMap() => {
         "first_name": firstName,
         "last_name": lastName,
-        "phone_number":phoneNumber,
+        "phone_number": phoneNumber,
         "email": email,
         "id": id
       };

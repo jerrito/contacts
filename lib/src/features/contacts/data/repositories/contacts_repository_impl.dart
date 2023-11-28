@@ -1,3 +1,4 @@
+import 'package:contacts/core/usecases/usecases.dart';
 import 'package:contacts/src/features/contacts/data/datasources/remoteds.dart';
 import 'package:contacts/src/features/contacts/domain/entities/contact.dart';
 import 'package:contacts/src/features/contacts/domain/repositories/contacts_repository.dart';
@@ -35,10 +36,18 @@ class ContactsRepositoryImpl implements ContactsRepository {
   }
 
   @override
-  Future<Either<String, List<Contact>>> getAllContact(
-     ) {
-    // TODO: implement getAllContact
-    throw UnimplementedError();
+  Future<Either<String, List<Contact>>> getAllContact(NoParams param) async {
+    if (await networkInfo.isConnected) {
+      try {
+        final response = await contactsRemoteDatasource.getAllContact(param);
+
+        return Right(response);
+      } catch (e) {
+        return Left(e.toString());
+      }
+    } else {
+     return const Left("No network connection");
+    }
   }
 
   @override

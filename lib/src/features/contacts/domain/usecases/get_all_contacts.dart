@@ -9,6 +9,6 @@ class GetAllContacts extends UseCases<List<Contact>, NoParams> {
   GetAllContacts({required this.repository});
   @override
   Future<Either<String, List<Contact>>> call(NoParams params ) async {
-    return await repository.getAllContact();
+    return await repository.getAllContact(params);
   }
 }
